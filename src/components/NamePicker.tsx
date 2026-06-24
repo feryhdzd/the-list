@@ -34,8 +34,7 @@ export default function NamePicker({ onSelect }: Props) {
       .insert({ name: trimmed })
 
     if (insertError && insertError.code !== '23505') {
-      // 23505 = unique violation (name already exists — treat as pick)
-      setError('Something went wrong. Try again.')
+      setError('❌ Algo salió mal. Intenta de nuevo.')
       setSubmitting(false)
       return
     }
@@ -47,14 +46,14 @@ export default function NamePicker({ onSelect }: Props) {
     <div className="min-h-screen bg-stone-50 flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
-          <h1 className="text-2xl font-semibold text-stone-800 mb-1">
-            the list <span style={{ color: '#7F77DD' }}>✦</span>
+          <h1 className="text-3xl font-semibold text-stone-800 mb-2">
+            🌿 Jardín Digital
           </h1>
-          <p className="text-stone-500 text-sm">a place for good things</p>
+          <p className="text-stone-500 text-sm">✨ un lugar para las cosas buenas</p>
         </div>
 
         <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-6">
-          <p className="text-stone-700 font-medium mb-4">who are you?</p>
+          <p className="text-stone-700 font-medium mb-4">👤 ¿quién eres?</p>
 
           {loading ? (
             <div className="space-y-2">
@@ -71,7 +70,7 @@ export default function NamePicker({ onSelect }: Props) {
                     onClick={() => onSelect(m.name)}
                     className="w-full text-left px-4 py-2.5 rounded-xl border border-stone-200 hover:border-[#7F77DD] hover:bg-purple-50 text-stone-700 transition-colors text-sm font-medium"
                   >
-                    {m.name}
+                    🌱 {m.name}
                   </button>
                 ))}
               </div>
@@ -81,7 +80,7 @@ export default function NamePicker({ onSelect }: Props) {
                   <div className="w-full border-t border-stone-200" />
                 </div>
                 <div className="relative flex justify-center">
-                  <span className="bg-white px-2 text-xs text-stone-400">or add yourself</span>
+                  <span className="bg-white px-2 text-xs text-stone-400">o agrégate tú</span>
                 </div>
               </div>
             </>
@@ -93,7 +92,7 @@ export default function NamePicker({ onSelect }: Props) {
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleNewName()}
-              placeholder="your name"
+              placeholder="tu nombre 🌸"
               maxLength={40}
               className="flex-1 px-3 py-2.5 text-sm border border-stone-200 rounded-xl outline-none focus:border-[#7F77DD] focus:ring-1 focus:ring-[#7F77DD] placeholder-stone-300"
             />
@@ -103,7 +102,7 @@ export default function NamePicker({ onSelect }: Props) {
               className="px-4 py-2.5 text-sm font-medium text-white rounded-xl disabled:opacity-40 transition-opacity hover:opacity-90"
               style={{ backgroundColor: '#7F77DD' }}
             >
-              go
+              entrar ✨
             </button>
           </div>
 

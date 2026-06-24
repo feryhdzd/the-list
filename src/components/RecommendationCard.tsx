@@ -9,6 +9,24 @@ const categoryColors: Record<Category, string> = {
   other: 'bg-stone-100 text-stone-600',
 }
 
+const categoryEmojis: Record<Category, string> = {
+  recipe: '🍳',
+  music: '🎵',
+  book: '📚',
+  link: '🔗',
+  list: '📋',
+  other: '✨',
+}
+
+const categoryLabels: Record<Category, string> = {
+  recipe: 'receta',
+  music: 'música',
+  book: 'libro',
+  link: 'link',
+  list: 'lista',
+  other: 'otro',
+}
+
 interface Props {
   rec: Recommendation
   isLiked: boolean
@@ -20,13 +38,13 @@ interface Props {
 function timeAgo(dateStr: string): string {
   const diff = Date.now() - new Date(dateStr).getTime()
   const mins = Math.floor(diff / 60000)
-  if (mins < 1) return 'just now'
-  if (mins < 60) return `${mins}m ago`
+  if (mins < 1) return 'ahora mismo'
+  if (mins < 60) return `hace ${mins}m`
   const hrs = Math.floor(mins / 60)
-  if (hrs < 24) return `${hrs}h ago`
+  if (hrs < 24) return `hace ${hrs}h`
   const days = Math.floor(hrs / 24)
-  if (days < 7) return `${days}d ago`
-  return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+  if (days < 7) return `hace ${days}d`
+  return new Date(dateStr).toLocaleDateString('es-MX', { month: 'short', day: 'numeric' })
 }
 
 export default function RecommendationCard({ rec, isLiked, onLike, currentUser, onEdit }: Props) {
@@ -34,15 +52,13 @@ export default function RecommendationCard({ rec, isLiked, onLike, currentUser, 
 
   return (
     <div className="bg-white rounded-2xl border border-stone-200 p-4 flex flex-col gap-2.5 shadow-sm hover:shadow-md transition-shadow">
-      {/* Category tag + time */}
       <div className="flex items-center justify-between gap-2">
         <span className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full ${categoryColors[rec.category]}`}>
-          {rec.category}
+          {categoryEmojis[rec.category]} {categoryLabels[rec.category]}
         </span>
         <span className="text-[11px] text-stone-400">{timeAgo(rec.created_at)}</span>
       </div>
 
-      {/* Title */}
       <div>
         {rec.url ? (
           <a
@@ -58,12 +74,10 @@ export default function RecommendationCard({ rec, isLiked, onLike, currentUser, 
         )}
       </div>
 
-      {/* Note */}
       {rec.note && (
         <p className="text-sm text-stone-500 leading-relaxed line-clamp-3">{rec.note}</p>
       )}
 
-      {/* URL chip */}
       {rec.url && (
         <a
           href={rec.url}
@@ -71,20 +85,19 @@ export default function RecommendationCard({ rec, isLiked, onLike, currentUser, 
           rel="noopener noreferrer"
           className="text-xs text-stone-400 truncate hover:text-stone-600 transition-colors"
         >
-          {new URL(rec.url).hostname.replace(/^www\./, '')}
+          🌐 {new URL(rec.url).hostname.replace(/^www\./, '')}
         </a>
       )}
 
-      {/* Footer */}
       <div className="flex items-center justify-between mt-auto pt-1 border-t border-stone-100">
         <div className="flex items-center gap-2">
-          <span className="text-xs text-stone-400">by {rec.posted_by}</span>
+          <span className="text-xs text-stone-400">🌱 {rec.posted_by}</span>
           {isOwner && (
             <button
               onClick={() => onEdit(rec)}
               className="text-xs text-stone-300 hover:text-[#7F77DD] transition-colors"
             >
-              edit
+              ✏️ editar
             </button>
           )}
         </div>
@@ -96,7 +109,7 @@ export default function RecommendationCard({ rec, isLiked, onLike, currentUser, 
               : 'text-stone-400 hover:text-rose-400 hover:bg-rose-50'
           }`}
         >
-          <span>{isLiked ? '♥' : '♡'}</span>
+          <span>{isLiked ? '❤️' : '🤍'}</span>
           <span>{rec.likes}</span>
         </button>
       </div>

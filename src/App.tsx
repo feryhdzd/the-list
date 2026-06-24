@@ -25,22 +25,21 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-stone-50">
-      {/* Nav */}
       <header className="sticky top-0 z-30 bg-white/80 backdrop-blur border-b border-stone-200">
         <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
           <span className="text-lg font-semibold tracking-tight text-stone-800">
-            the list <span style={{ color: '#7F77DD' }}>✦</span>
+            🌿 Jardín Digital
           </span>
           <div className="flex items-center gap-3">
             <span className="text-sm text-stone-400 hidden sm:block">
-              hi, {userName}
+              👋 hola, {userName}
             </span>
             <button
               onClick={() => setShowAddModal(true)}
               className="text-sm font-medium px-4 py-1.5 rounded-full text-white transition-opacity hover:opacity-90"
               style={{ backgroundColor: '#7F77DD' }}
             >
-              + add something
+              ✨ agregar algo
             </button>
           </div>
         </div>

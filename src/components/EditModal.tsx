@@ -2,12 +2,12 @@ import { useState, useEffect, useRef } from 'react'
 import { supabase, type Recommendation, type Category } from '../lib/supabase'
 
 const categories: { value: Category; label: string }[] = [
-  { value: 'recipe', label: 'recipe' },
-  { value: 'music', label: 'music' },
-  { value: 'book', label: 'book' },
-  { value: 'link', label: 'link' },
-  { value: 'list', label: 'list' },
-  { value: 'other', label: 'other' },
+  { value: 'recipe', label: '🍳 receta' },
+  { value: 'music', label: '🎵 música' },
+  { value: 'book', label: '📚 libro' },
+  { value: 'link', label: '🔗 link' },
+  { value: 'list', label: '📋 lista' },
+  { value: 'other', label: '✨ otro' },
 ]
 
 interface Props {
@@ -48,7 +48,7 @@ export default function EditModal({ rec, onClose }: Props) {
       .eq('id', rec.id)
 
     if (err) {
-      setError('Something went wrong. Try again.')
+      setError('❌ Algo salió mal. Intenta de nuevo.')
       setSubmitting(false)
     } else {
       onClose()
@@ -62,7 +62,7 @@ export default function EditModal({ rec, onClose }: Props) {
     >
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6">
         <div className="flex items-center justify-between mb-5">
-          <h2 className="font-semibold text-stone-800">edit</h2>
+          <h2 className="font-semibold text-stone-800">✏️ editar</h2>
           <button
             onClick={onClose}
             className="text-stone-400 hover:text-stone-600 transition-colors text-xl leading-none"
@@ -74,7 +74,7 @@ export default function EditModal({ rec, onClose }: Props) {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-xs font-medium text-stone-500 mb-1">
-              title <span className="text-rose-400">*</span>
+              📝 título <span className="text-rose-400">*</span>
             </label>
             <input
               ref={titleRef}
@@ -88,7 +88,7 @@ export default function EditModal({ rec, onClose }: Props) {
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-stone-500 mb-1">category</label>
+            <label className="block text-xs font-medium text-stone-500 mb-1">🏷️ categoría</label>
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value as Category)}
@@ -102,7 +102,7 @@ export default function EditModal({ rec, onClose }: Props) {
 
           <div>
             <label className="block text-xs font-medium text-stone-500 mb-1">
-              url <span className="text-stone-300">(optional)</span>
+              🔗 url <span className="text-stone-300">(opcional)</span>
             </label>
             <input
               type="url"
@@ -115,7 +115,7 @@ export default function EditModal({ rec, onClose }: Props) {
 
           <div>
             <label className="block text-xs font-medium text-stone-500 mb-1">
-              note <span className="text-stone-300">(optional)</span>
+              💬 nota <span className="text-stone-300">(opcional)</span>
             </label>
             <textarea
               value={note}
@@ -134,7 +134,7 @@ export default function EditModal({ rec, onClose }: Props) {
               onClick={onClose}
               className="flex-1 py-2.5 text-sm text-stone-500 border border-stone-200 rounded-xl hover:bg-stone-50 transition-colors"
             >
-              cancel
+              cancelar
             </button>
             <button
               type="submit"
@@ -142,7 +142,7 @@ export default function EditModal({ rec, onClose }: Props) {
               className="flex-1 py-2.5 text-sm font-medium text-white rounded-xl disabled:opacity-40 transition-opacity hover:opacity-90"
               style={{ backgroundColor: '#7F77DD' }}
             >
-              {submitting ? 'saving...' : 'save changes'}
+              {submitting ? 'guardando... 🌿' : 'guardar cambios ✅'}
             </button>
           </div>
         </form>

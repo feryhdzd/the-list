@@ -2,12 +2,12 @@ import { useState, useEffect, useRef } from 'react'
 import { supabase, type Category } from '../lib/supabase'
 
 const categories: { value: Category; label: string }[] = [
-  { value: 'recipe', label: 'recipe' },
-  { value: 'music', label: 'music' },
-  { value: 'book', label: 'book' },
-  { value: 'link', label: 'link' },
-  { value: 'list', label: 'list' },
-  { value: 'other', label: 'other' },
+  { value: 'recipe', label: '🍳 receta' },
+  { value: 'music', label: '🎵 música' },
+  { value: 'book', label: '📚 libro' },
+  { value: 'link', label: '🔗 link' },
+  { value: 'list', label: '📋 lista' },
+  { value: 'other', label: '✨ otro' },
 ]
 
 interface Props {
@@ -47,7 +47,7 @@ export default function AddModal({ currentUser, onClose }: Props) {
     })
 
     if (err) {
-      setError('Something went wrong. Try again.')
+      setError('❌ Algo salió mal. Intenta de nuevo.')
       setSubmitting(false)
     } else {
       onClose()
@@ -61,7 +61,7 @@ export default function AddModal({ currentUser, onClose }: Props) {
     >
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6">
         <div className="flex items-center justify-between mb-5">
-          <h2 className="font-semibold text-stone-800">add something</h2>
+          <h2 className="font-semibold text-stone-800">🌱 agregar algo al jardín</h2>
           <button
             onClick={onClose}
             className="text-stone-400 hover:text-stone-600 transition-colors text-xl leading-none"
@@ -71,26 +71,24 @@ export default function AddModal({ currentUser, onClose }: Props) {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Title */}
           <div>
             <label className="block text-xs font-medium text-stone-500 mb-1">
-              title <span className="text-rose-400">*</span>
+              📝 título <span className="text-rose-400">*</span>
             </label>
             <input
               ref={titleRef}
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="what is it?"
+              placeholder="¿qué es?"
               maxLength={200}
               required
               className="w-full px-3 py-2.5 text-sm border border-stone-200 rounded-xl outline-none focus:border-[#7F77DD] focus:ring-1 focus:ring-[#7F77DD] placeholder-stone-300"
             />
           </div>
 
-          {/* Category */}
           <div>
-            <label className="block text-xs font-medium text-stone-500 mb-1">category</label>
+            <label className="block text-xs font-medium text-stone-500 mb-1">🏷️ categoría</label>
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value as Category)}
@@ -102,10 +100,9 @@ export default function AddModal({ currentUser, onClose }: Props) {
             </select>
           </div>
 
-          {/* URL */}
           <div>
             <label className="block text-xs font-medium text-stone-500 mb-1">
-              url <span className="text-stone-300">(optional)</span>
+              🔗 url <span className="text-stone-300">(opcional)</span>
             </label>
             <input
               type="url"
@@ -116,15 +113,14 @@ export default function AddModal({ currentUser, onClose }: Props) {
             />
           </div>
 
-          {/* Note */}
           <div>
             <label className="block text-xs font-medium text-stone-500 mb-1">
-              note <span className="text-stone-300">(optional)</span>
+              💬 nota <span className="text-stone-300">(opcional)</span>
             </label>
             <textarea
               value={note}
               onChange={(e) => setNote(e.target.value.slice(0, 200))}
-              placeholder="why do you like it?"
+              placeholder="¿por qué te gusta?"
               rows={3}
               className="w-full px-3 py-2.5 text-sm border border-stone-200 rounded-xl outline-none focus:border-[#7F77DD] focus:ring-1 focus:ring-[#7F77DD] placeholder-stone-300 resize-none"
             />
@@ -139,7 +135,7 @@ export default function AddModal({ currentUser, onClose }: Props) {
               onClick={onClose}
               className="flex-1 py-2.5 text-sm text-stone-500 border border-stone-200 rounded-xl hover:bg-stone-50 transition-colors"
             >
-              cancel
+              cancelar
             </button>
             <button
               type="submit"
@@ -147,7 +143,7 @@ export default function AddModal({ currentUser, onClose }: Props) {
               className="flex-1 py-2.5 text-sm font-medium text-white rounded-xl disabled:opacity-40 transition-opacity hover:opacity-90"
               style={{ backgroundColor: '#7F77DD' }}
             >
-              {submitting ? 'adding...' : 'add it ✦'}
+              {submitting ? 'guardando... 🌿' : '¡plantar! 🌱'}
             </button>
           </div>
         </form>

@@ -3,13 +3,13 @@ import type { Category } from '../lib/supabase'
 export type Filter = 'all' | Category
 
 const filters: { value: Filter; label: string }[] = [
-  { value: 'all', label: 'all' },
-  { value: 'recipe', label: 'recipes' },
-  { value: 'music', label: 'music' },
-  { value: 'book', label: 'books' },
-  { value: 'link', label: 'links' },
-  { value: 'list', label: 'lists' },
-  { value: 'other', label: 'other' },
+  { value: 'all', label: '🌿 todo' },
+  { value: 'recipe', label: '🍳 recetas' },
+  { value: 'music', label: '🎵 música' },
+  { value: 'book', label: '📚 libros' },
+  { value: 'link', label: '🔗 links' },
+  { value: 'list', label: '📋 listas' },
+  { value: 'other', label: '✨ otro' },
 ]
 
 interface Props {
