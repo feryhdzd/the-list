@@ -23,6 +23,7 @@ export default function EditModal({ rec, onClose }: Props) {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
   const titleRef = useRef<HTMLInputElement>(null)
+  const noteLimit = category === 'recipe' ? 1000 : 200
 
   useEffect(() => {
     titleRef.current?.focus()
@@ -119,11 +120,11 @@ export default function EditModal({ rec, onClose }: Props) {
             </label>
             <textarea
               value={note}
-              onChange={(e) => setNote(e.target.value.slice(0, 200))}
-              rows={3}
+              onChange={(e) => setNote(e.target.value.slice(0, noteLimit))}
+              rows={category === 'recipe' ? 6 : 3}
               className="w-full px-3 py-2.5 text-sm border border-stone-200 rounded-xl outline-none focus:border-[#7F77DD] focus:ring-1 focus:ring-[#7F77DD] resize-none"
             />
-            <p className="text-right text-xs text-stone-300 mt-0.5">{note.length}/200</p>
+            <p className="text-right text-xs text-stone-300 mt-0.5">{note.length}/{noteLimit}</p>
           </div>
 
           {error && <p className="text-xs text-red-500">{error}</p>}
