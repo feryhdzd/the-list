@@ -2,9 +2,10 @@ import { useState, useEffect, useCallback } from 'react'
 import { supabase, type Recommendation } from '../lib/supabase'
 import FilterBar, { type Filter } from './FilterBar'
 import RecommendationCard from './RecommendationCard'
+import EditModal from './EditModal'
 
 interface Props {
-  currentUser: string // available for future use (e.g., highlight own posts)
+  currentUser: string
 }
 
 const LIKED_KEY = 'the-list-liked'
@@ -22,11 +23,12 @@ function saveLiked(ids: Set<string>) {
   localStorage.setItem(LIKED_KEY, JSON.stringify([...ids]))
 }
 
-export default function Feed({ currentUser: _currentUser }: Props) {
+export default function Feed({ currentUser }: Props) {
   const [recs, setRecs] = useState<Recommendation[]>([])
   const [filter, setFilter] = useState<Filter>('all')
   const [loading, setLoading] = useState(true)
   const [likedIds, setLikedIds] = useState<Set<string>>(getLiked)
+  const [editing, setEditing] = useState<Recommendation | null>(null)
 
   const fetchRecs = useCallback(async () => {
     const { data } = await supabase
@@ -116,11 +118,19 @@ export default function Feed({ currentUser: _currentUser }: Props) {
               rec={rec}
               isLiked={likedIds.has(rec.id)}
               onLike={handleLike}
+              currentUser={currentUser}
+              onEdit={setEditing}
             />
           ))}
         </div>
       )}
+
+      {editing && (
+        <EditModal
+          rec={editing}
+          onClose={() => setEditing(null)}
+        />
+      )}
     </div>
   )
 }
-

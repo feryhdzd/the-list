@@ -13,6 +13,8 @@ interface Props {
   rec: Recommendation
   isLiked: boolean
   onLike: (id: string) => void
+  currentUser: string
+  onEdit: (rec: Recommendation) => void
 }
 
 function timeAgo(dateStr: string): string {
@@ -27,10 +29,12 @@ function timeAgo(dateStr: string): string {
   return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
 }
 
-export default function RecommendationCard({ rec, isLiked, onLike }: Props) {
+export default function RecommendationCard({ rec, isLiked, onLike, currentUser, onEdit }: Props) {
+  const isOwner = rec.posted_by === currentUser
+
   return (
     <div className="bg-white rounded-2xl border border-stone-200 p-4 flex flex-col gap-2.5 shadow-sm hover:shadow-md transition-shadow">
-      {/* Category tag */}
+      {/* Category tag + time */}
       <div className="flex items-center justify-between gap-2">
         <span className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full ${categoryColors[rec.category]}`}>
           {rec.category}
@@ -73,7 +77,17 @@ export default function RecommendationCard({ rec, isLiked, onLike }: Props) {
 
       {/* Footer */}
       <div className="flex items-center justify-between mt-auto pt-1 border-t border-stone-100">
-        <span className="text-xs text-stone-400">by {rec.posted_by}</span>
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-stone-400">by {rec.posted_by}</span>
+          {isOwner && (
+            <button
+              onClick={() => onEdit(rec)}
+              className="text-xs text-stone-300 hover:text-[#7F77DD] transition-colors"
+            >
+              edit
+            </button>
+          )}
+        </div>
         <button
           onClick={() => onLike(rec.id)}
           className={`flex items-center gap-1 text-xs font-medium px-2.5 py-1 rounded-full transition-colors ${
